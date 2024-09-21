@@ -1,60 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-/*
-*Header
-  -logo
-  -nav items
-*Body
-  -search
-  -restaurantContainer
-    -RestaurantCard
-      -img
-      -name of res, star rating,delivery time
-*Footer
-  -copyright
-  -links
-  -address
-  -contact
-*/
-
-const Header = () => {
-  return (
-    <div className="header">
-      <div className="logo-container">
-        <img
-          className="logo"
-          src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-food-logo-png-image_5297921.png"
-        />
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const RestaurantCard = ({ resData }) => {
-  //const { resData } = props;
-  //console.log(props);
-  const imageUrl = `https://tb-static.uber.com/prod/image-proc/processed_images/${resData.data.imageId}.jpeg`;
-  const { name, cuisines, rating, costForTwo } = resData?.data;
-  return (
-    <div className="res-card" style={{ background: "#f0f0f0" }}>
-      <img className="res-logo" alt="res-logo" src={imageUrl} />
-      <h3>{name}</h3>
-      <h3>{cuisines.join(", ")}</h3>
-      <h3>{rating}</h3>
-      <h3>Rs. {costForTwo / 100} for two</h3>
-    </div>
-  );
-};
-
 const resList = [
   {
     type: "restaurant",
@@ -152,37 +95,6 @@ const resList = [
   {
     type: "restaurant",
     data: {
-      name: "POPEYES",
-      description: "Popular for its modern twist on classic dishes.",
-      cuisines: ["Mexican", "Tacos", "Burgers"],
-      rating: 4.3,
-      costForTwo: 35000,
-      address: {
-        street: "1010 Elm Street",
-        city: "Colombo",
-        province: "Western",
-        zip: "00303",
-      },
-      contact: {
-        phone: "+94-11-234-5678",
-        email: "contact@resdollars.lk",
-      },
-      hours: {
-        monday: "11:00 AM - 10:00 PM",
-        tuesday: "11:00 AM - 10:00 PM",
-        wednesday: "11:00 AM - 10:00 PM",
-        thursday: "11:00 AM - 10:00 PM",
-        friday: "11:00 AM - 11:00 PM",
-        saturday: "11:00 AM - 11:00 PM",
-        sunday: "11:00 AM - 10:00 PM",
-      },
-      imageId:
-        "372bab3aadbf248b7bc7418d20b8e50c/50446f64f31cbefe66558fc47f50a9d6",
-    },
-  },
-  {
-    type: "restaurant",
-    data: {
       name: "Mr.Burger",
       description: "A cozy spot for coffee and light meals.",
       cuisines: ["Coffee", "Sandwiches", "Desserts"],
@@ -245,7 +157,7 @@ const resList = [
   {
     type: "restaurant",
     data: {
-      name: "Indulge Desserts&",
+      name: "Indulge Desserts",
       description: "Offers a wide range of gourmet dishes.",
       cuisines: ["French", "Italian", "European"],
       rating: 4.6,
@@ -276,7 +188,69 @@ const resList = [
   {
     type: "restaurant",
     data: {
-      name: "A Bite",
+      name: "POPEYES",
+      description: "Popular for its modern twist on classic dishes.",
+      cuisines: ["Mexican", "Tacos", "Burgers"],
+      rating: 4.3,
+      costForTwo: 35000,
+      address: {
+        street: "1010 Elm Street",
+        city: "Colombo",
+        province: "Western",
+        zip: "00303",
+      },
+      contact: {
+        phone: "+94-11-234-5678",
+        email: "contact@resdollars.lk",
+      },
+      hours: {
+        monday: "11:00 AM - 10:00 PM",
+        tuesday: "11:00 AM - 10:00 PM",
+        wednesday: "11:00 AM - 10:00 PM",
+        thursday: "11:00 AM - 10:00 PM",
+        friday: "11:00 AM - 11:00 PM",
+        saturday: "11:00 AM - 11:00 PM",
+        sunday: "11:00 AM - 10:00 PM",
+      },
+      imageId:
+        "372bab3aadbf248b7bc7418d20b8e50c/50446f64f31cbefe66558fc47f50a9d6",
+    },
+  },
+  {
+    type: "restaurant",
+    data: {
+      name: "Spizzerts",
+      description: "Offers a wide range of gourmet dishes.",
+      cuisines: ["French", "Italian", "European"],
+      rating: 3.8,
+      costForTwo: 55000,
+      address: {
+        street: "4040 Birch Street",
+        city: "Colombo",
+        province: "Western",
+        zip: "01306",
+      },
+      contact: {
+        phone: "+94-11-567-8901",
+        email: "contact@resand.lk",
+      },
+      hours: {
+        monday: "12:00 PM - 11:00 PM",
+        tuesday: "12:00 PM - 11:00 PM",
+        wednesday: "12:00 PM - 11:00 PM",
+        thursday: "12:00 PM - 11:00 PM",
+        friday: "12:00 PM - 12:00 AM",
+        saturday: "12:00 PM - 12:00 AM",
+        sunday: "12:00 PM - 11:00 PM",
+      },
+      imageId:
+        "ac4284a53afa70f82673959ccc431257/719c6bd2757b08684c0faae44d43159d",
+    },
+  },
+  {
+    type: "restaurant",
+    data: {
+      name: "Cake Villa",
       description: "A great spot for a family dinner.",
       cuisines: ["Indian", "Chinese", "Thai"],
       rating: 4.2,
@@ -301,35 +275,133 @@ const resList = [
         sunday: "11:00 AM - 10:00 PM",
       },
       imageId:
+        "6934f6c46ce8785070fed7e55f5eab4a/3ac2b39ad528f8c8c5dc77c59abb683d",
+    },
+  },
+  {
+    type: "restaurant",
+    data: {
+      name: "Pilawoos",
+      description: "Offers a wide range of gourmet dishes.",
+      cuisines: ["French", "Italian", "European"],
+      rating: 4.6,
+      costForTwo: 55000,
+      address: {
+        street: "4040 Birch Street",
+        city: "Colombo",
+        province: "Western",
+        zip: "10306",
+      },
+      contact: {
+        phone: "+94-11-567-8901",
+        email: "contact@resand.lk",
+      },
+      hours: {
+        monday: "12:00 PM - 11:00 PM",
+        tuesday: "12:00 PM - 11:00 PM",
+        wednesday: "12:00 PM - 11:00 PM",
+        thursday: "12:00 PM - 11:00 PM",
+        friday: "12:00 PM - 12:00 AM",
+        saturday: "12:00 PM - 12:00 AM",
+        sunday: "12:00 PM - 11:00 PM",
+      },
+      imageId:
+        "6cb44a0438bfa1d2d8a3339f58fd2c4c/719c6bd2757b08684c0faae44d43159d",
+    },
+  },
+  {
+    type: "restaurant",
+    data: {
+      name: "A Bite",
+      description: "A great spot for a family dinner.",
+      cuisines: ["Indian", "Chinese", "Thai"],
+      rating: 4.2,
+      costForTwo: 34000,
+      address: {
+        street: "5050 Cedar Drive",
+        city: "Colombo",
+        province: "Western",
+        zip: "00333",
+      },
+      contact: {
+        phone: "+94-11-678-9012",
+        email: "info@resstar.lk",
+      },
+      hours: {
+        monday: "11:00 AM - 10:00 PM",
+        tuesday: "11:00 AM - 10:00 PM",
+        wednesday: "11:00 AM - 10:00 PM",
+        thursday: "11:00 AM - 10:00 PM",
+        friday: "11:00 AM - 11:00 PM",
+        saturday: "11:00 AM - 11:00 PM",
+        sunday: "11:00 AM - 10:00 PM",
+      },
+      imageId:
         "e853c17f00ff859a152869fb0622fbc5/d24a30ada2fef6c54cef8739d94823b0",
+    },
+  },
+  {
+    type: "restaurant",
+    data: {
+      name: "Frutti Natural Ice Cream",
+      description: "Offers a wide range of gourmet dishes.",
+      cuisines: ["French", "Italian", "European"],
+      rating: 4.8,
+      costForTwo: 55000,
+      address: {
+        street: "4040 Birch Street",
+        city: "Colombo",
+        province: "Western",
+        zip: "04306",
+      },
+      contact: {
+        phone: "+94-11-567-8901",
+        email: "contact@resand.lk",
+      },
+      hours: {
+        monday: "12:00 PM - 11:00 PM",
+        tuesday: "12:00 PM - 11:00 PM",
+        wednesday: "12:00 PM - 11:00 PM",
+        thursday: "12:00 PM - 11:00 PM",
+        friday: "12:00 PM - 12:00 AM",
+        saturday: "12:00 PM - 12:00 AM",
+        sunday: "12:00 PM - 11:00 PM",
+      },
+      imageId:
+        "e8b1b84964f80d30ef745c262fa11c9a/783282f6131ef2258e5bcd87c46aa87e",
+    },
+  },
+  {
+    type: "restaurant",
+    data: {
+      name: "Tea Avenue",
+      description: "A great spot for a family dinner.",
+      cuisines: ["Indian", "Chinese", "Thai"],
+      rating: 3,
+      costForTwo: 34000,
+      address: {
+        street: "5050 Cedar Drive",
+        city: "Colombo",
+        province: "Western",
+        zip: "00355",
+      },
+      contact: {
+        phone: "+94-11-678-9012",
+        email: "info@resstar.lk",
+      },
+      hours: {
+        monday: "11:00 AM - 10:00 PM",
+        tuesday: "11:00 AM - 10:00 PM",
+        wednesday: "11:00 AM - 10:00 PM",
+        thursday: "11:00 AM - 10:00 PM",
+        friday: "11:00 AM - 11:00 PM",
+        saturday: "11:00 AM - 11:00 PM",
+        sunday: "11:00 AM - 10:00 PM",
+      },
+      imageId:
+        "b4b8274a231d862148ff657f20d775b8/cc592037c936600295e9961933037e19",
     },
   },
 ];
 
-const Body = () => {
-  return (
-    <div className="body">
-      <div className="search">Search</div>
-      <div className="res-container">
-        {resList.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.data.address.zip}
-            resData={restaurant}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const AppLayout = () => {
-  return (
-    <div className="app">
-      <Header />
-      <Body />
-    </div>
-  );
-};
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(<AppLayout />);
+export default resList;
