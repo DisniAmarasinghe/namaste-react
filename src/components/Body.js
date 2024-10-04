@@ -1,70 +1,82 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
-import { useState } from "react";
+import Shimmer from "./Shimmer";
+import { useState, useEffect } from "react";
 
 const Body = () => {
   //local state variable
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  //normal js variable
-  // let listOfRes = [
-  //   {
-  //     data: {
-  //       name: "POPEYES",
-  //       description: "Popular for its modern twist on classic dishes.",
-  //       cuisines: ["Mexican", "Tacos", "Burgers"],
-  //       rating: 3.3,
-  //       costForTwo: 35000,
-  //       address: {
-  //         street: "1010 Elm Street",
-  //         city: "Colombo",
-  //         province: "Western",
-  //         zip: "00303",
-  //       },
-  //       imageId:
-  //         "372bab3aadbf248b7bc7418d20b8e50c/50446f64f31cbefe66558fc47f50a9d6",
-  //     },
-  //   },
-  //   {
-  //     data: {
-  //       name: "KFC",
-  //       description: "Popular for its modern twist on classic dishes.",
-  //       cuisines: ["Mexican", "Tacos", "Burgers"],
-  //       rating: 4.3,
-  //       costForTwo: 35000,
-  //       address: {
-  //         street: "1010 Elm Street",
-  //         city: "Colombo",
-  //         province: "Western",
-  //         zip: "00304",
-  //       },
-  //       imageId:
-  //         "372bab3aadbf248b7bc7418d20b8e50c/50446f64f31cbefe66558fc47f50a9d6",
-  //     },
-  //   },
-  // ];
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
 
-  return (
+    console.log(json);
+    setListOfRestaurants(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurants(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  };
+
+  //conditional rendering
+  // if (listOfRestaurants.length === 0) {
+  //   return <Shimmer />;
+  // }
+
+  return listOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="filter">
+        <div className="search">
+          <input
+            type="text"
+            className="search-box"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              console.log(searchText);
+
+              const filteredRestaurants = listOfRestaurants.filter((res) =>
+                res.data.name
+                  .toLowerCase()
+                  .includes(searchText.toLocaleLowerCase())
+              );
+              setFilteredRestaurants(filteredRestaurants);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
+            console.log("listOfRestaurants", listOfRestaurants);
             const filteredList = listOfRestaurants.filter(
-              (res) => res.data.rating > 4.5
+              (restaurant) => restaurant.info.avgRating >= 4.5
             );
             setListOfRestaurants(filteredList);
+            console.log("2", listOfRestaurants);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
       <div className="res-container">
-        {listOfRestaurants.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.data.address.zip}
-            resData={restaurant}
-          />
+        {filteredRestaurants.map((restaurant) => (
+          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
     </div>
